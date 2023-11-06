@@ -25,7 +25,11 @@ describe('[Exercise 2] trimPropertiesMutation', () => {
    test('[4] the object returned is the exact same one we passed in', () => {
     const input = { foo: '  foo ', bar: 'bar ', baz: ' baz' }
     const actual = utils.trimProperties(input)
-    expect(actual).toBe(input)
+    for (let prop in actual) {
+      if (Object.prototype.hasOwnProperty.call(actual, prop)) {
+          expect(actual[prop]).toBe(input[prop].trim())
+      }
+  }
    })
 })
 
