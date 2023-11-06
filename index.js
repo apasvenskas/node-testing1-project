@@ -7,9 +7,9 @@
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
 function trimProperties(obj) {
-  const result = {}
+  const result = Object.assign({}, obj)
   for (let prop in obj) {
-    result[prop] = obj[prop].trim()
+    result[prop] = result[prop].trim()
   }
   return result
 }
@@ -24,7 +24,9 @@ function trimProperties(obj) {
  */
 function trimPropertiesMutation(obj) {
   for(let prop in obj){
-    obj[prop] = obj[prop].trim()
+    if(Object.prototype.hasOwnProperty.call(obj, prop)){
+      obj[prop] = obj[prop].trim()
+    }
   }
   return obj
 }
@@ -83,7 +85,7 @@ class Seasons {
    * [Exercise 5A] Seasons creates a seasons object
    */
   constructor() {
-    this.Seasons = ['summer', 'fall', 'winter', 'spring']
+    this.seasons = ['summer', 'fall', 'winter', 'spring']
     this.currentSeason = 0
   }
 
@@ -185,11 +187,8 @@ class Car {
  *    // result is false
  * })
  */
-function isEvenNumberAsync(number) {
-  if (number % 2 === 0) {
-    return Promise.resolve(true)
-  }
-  return Promise.resolve(false)
+async function isEvenNumberAsync(number) {
+  return number % 2 === 0 || false
 }
 
 module.exports = {
